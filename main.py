@@ -79,8 +79,33 @@ def find_password():
         else:
             messagebox.showinfo(title="Error", message=f"No details for {website_search} exists.")
 
+# ---------------------------- UI SETUP ------------------------------- #
 
 
+login_window = Tk()
+login_window.title("Login")
+login_window.config(padx=50, pady=50, bg="white")
+
+login_label = Label(text="Login to your account", bg="white", fg="black", font=("Courier",35, "bold"))
+login_label.grid(row=0, column=1)
+
+email_address_label = Label(text="Email: ", bg="white", fg="black")
+email_address_label.grid(row=2, column=0)
+
+email_address_entry = Entry(bg="white", fg="black", highlightthickness=0, width=35)
+email_address_entry.grid(row=2, column=1)
+
+password_label = Label(text="Password: ", bg="white", fg="black")
+password_label.grid(row=4, column=0)
+
+password_entry = Entry(bg="white", fg="black", highlightthickness=0, width=35)
+password_entry.grid(row=4, column=1)
+
+sign_in_button = Button(text="Sign In", highlightbackground="white", width=28)
+sign_in_button.grid(row=6,column=1)
+
+
+login_window.mainloop()
 
 # ---------------------------- UI SETUP ------------------------------- #
 
