@@ -4,6 +4,9 @@ from random import choice, randint, shuffle
 import pyperclip
 import json
 
+EMAIL = "cchima@yahoo.com"
+PASSWORD = "chimacham"
+
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def generate_password():
@@ -79,21 +82,80 @@ def find_password():
         else:
             messagebox.showinfo(title="Error", message=f"No details for {website_search} exists.")
 
-# ---------------------------- UI SETUP ------------------------------- #
+
+# ---------------------------- Login Function ------------------------------- #
+
+def log_in():
+    email = email_entry.get()
+    password = password_entry.get()
+    if email == EMAIL and password == PASSWORD:
+        login_window.destroy()
+        open_main_window()
+    else:
+        messagebox.showerror(title="Error", message="Invalid Credentials. Please Try Again ")
+
+
+# ---------------------------- Open Main Window ------------------------------- #
+
+def open_main_window():
+    global password_manager_window
+    password_manager_window = Tk()
+    password_manager_window.title("Password Manager")
+    password_manager_window.config(padx=50, pady=50, bg="white")
+
+    canvas = Canvas(width=200, height=200, bg="white", highlightthickness=0)
+    lock_img = PhotoImage(file="logo.png")
+    canvas.create_image(100, 100, image=lock_img)
+    canvas.grid(column=1, row=0)
+
+    website_label = Label(text="Website:", bg="white", fg="black")
+    website_label.grid(column=0, row=1, )
+
+    website_entry = Entry(bg="white", fg="black", highlightthickness=0, width=20)
+    website_entry.focus()
+    website_entry.grid(column=1, row=1, columnspan=1)
+
+    search_button = Button(text="Search", highlightbackground="white", width=10, command=find_password)
+    search_button.grid(column=2, row=1)
+
+    email_username_label = Label(text="Email/Username:", bg="white", fg="black")
+    email_username_label.grid(column=0, row=2)
+
+    email_username_entry = Entry(bg="white", fg="black", highlightthickness=0, width=35)
+    email_username_entry.insert(0, "cchima1014@yahoo.com", )
+    email_username_entry.grid(column=1, row=2, columnspan=2)
+
+    password_label = Label(text="Password:", bg="white", fg="black")
+    password_label.grid(column=0, row=3)
+
+    password_entry = Entry(bg="white", fg="black", highlightthickness=0, width=20)
+    password_entry.grid(column=1, row=3)
+
+    generate_password_button = Button(text="Generate Password", highlightbackground="white", width=10,
+                                      command=generate_password)
+    generate_password_button.grid(column=2, row=3)
+
+    add_button = Button(text="Add", highlightbackground="white", width=35, command=save_password)
+    add_button.grid(column=1, row=4, columnspan=2)
+
+    password_manager_window.mainloop()
+
+
+# ---------------------------- Login UI SETUP ------------------------------- #
 
 
 login_window = Tk()
 login_window.title("Login")
 login_window.config(padx=50, pady=50, bg="white")
 
-login_label = Label(text="Login to your account", bg="white", fg="black", font=("Courier",35, "bold"))
+login_label = Label(text="Login to your account", bg="white", fg="red", font=("Courier",35, "bold"))
 login_label.grid(row=0, column=1)
 
-email_address_label = Label(text="Email: ", bg="white", fg="black")
-email_address_label.grid(row=2, column=0)
+email_label = Label(text="Email: ", bg="white", fg="black")
+email_label.grid(row=2, column=0)
 
-email_address_entry = Entry(bg="white", fg="black", highlightthickness=0, width=35)
-email_address_entry.grid(row=2, column=1)
+email_entry = Entry(bg="white", fg="black", highlightthickness=0, width=35)
+email_entry.grid(row=2, column=1)
 
 password_label = Label(text="Password: ", bg="white", fg="black")
 password_label.grid(row=4, column=0)
@@ -101,52 +163,9 @@ password_label.grid(row=4, column=0)
 password_entry = Entry(bg="white", fg="black", highlightthickness=0, width=35)
 password_entry.grid(row=4, column=1)
 
-sign_in_button = Button(text="Sign In", highlightbackground="white", width=28)
+sign_in_button = Button(text="Sign In", highlightbackground="white", width=28, command=log_in)
 sign_in_button.grid(row=6,column=1)
 
 
 login_window.mainloop()
 
-# ---------------------------- UI SETUP ------------------------------- #
-
-
-password_manager_window = Tk()
-password_manager_window.title("Password Manager")
-password_manager_window.config(padx=50, pady=50, bg="white")
-
-canvas = Canvas(width=200, height=200, bg="white", highlightthickness=0)
-lock_img = PhotoImage(file="logo.png")
-canvas.create_image(100, 100, image=lock_img)
-canvas.grid(column=1, row=0)
-
-website_label = Label(text="Website:", bg="white", fg="black")
-website_label.grid(column=0, row=1, )
-
-website_entry = Entry(bg="white", fg="black", highlightthickness=0, width=20)
-website_entry.focus()
-website_entry.grid(column=1, row=1, columnspan=1)
-
-search_button = Button(text="Search", highlightbackground="white", width=10, command=find_password)
-search_button.grid(column=2, row=1)
-
-email_username_label = Label(text="Email/Username:", bg="white", fg="black")
-email_username_label.grid(column=0, row=2)
-
-email_username_entry = Entry(bg="white", fg="black", highlightthickness=0, width=35)
-email_username_entry.insert(0, "cchima1014@yahoo.com", )
-email_username_entry.grid(column=1, row=2, columnspan=2)
-
-password_label = Label(text="Password:", bg="white", fg="black")
-password_label.grid(column=0, row=3)
-
-password_entry = Entry(bg="white", fg="black", highlightthickness=0, width=20)
-password_entry.grid(column=1, row=3)
-
-generate_password_button = Button(text="Generate Password", highlightbackground="white", width=10,
-                                  command=generate_password)
-generate_password_button.grid(column=2, row=3)
-
-add_button = Button(text="Add", highlightbackground="white", width=35, command=save_password)
-add_button.grid(column=1, row=4, columnspan=2)
-
-password_manager_window.mainloop()
